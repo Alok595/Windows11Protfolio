@@ -1,0 +1,5 @@
+{
+  "name": "Windows 11 Portfolio",
+  "description": "A Windows 11 styled portfolio for a full-stack developer featuring a centered taskbar, floating start menu, and Mica-effect windows.",
+  "requestFramePermissions": ["camera"]
+}
