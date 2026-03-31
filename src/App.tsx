@@ -1,23 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import {
-  UserCircle,
-  Briefcase,
-  Code2,
-  Terminal as TerminalIcon,
-  Mail,
-  FileText,
-  Github,
-  Linkedin,
-  Youtube,
-  LayoutGrid,
-  RotateCcw,
-  Power,
-  Cpu,
-  Camera as CameraIcon,
-  Trash2,
-  Image as ImageIcon,
-  Award,
-} from "lucide-react";
+import React, { useState, useCallback } from "react";
+import { RotateCcw, Power, Cpu } from "lucide-react";
 import { Window } from "./components/Window";
 import { Taskbar } from "./components/Taskbar";
 import { StartMenu } from "./components/StartMenu";
@@ -33,7 +15,8 @@ import { Camera } from "./components/apps/Camera";
 import { RecycleBin } from "./components/apps/RecycleBin";
 import { Notepad } from "./components/apps/Notepad";
 import { Certificates } from "./components/apps/Certificates";
-import { WindowId, WindowState, PortfolioData } from "./types";
+import { WindowId, WindowState } from "./types";
+import { PORTFOLIO_DATA } from "./portfolioData";
 import { AnimatePresence, motion } from "motion/react";
 
 const WALLPAPERS = [
@@ -104,27 +87,6 @@ const WIN_ICONS = {
     <img
       src="https://img.icons8.com/fluency/48/000000/notepad.png"
       alt="Notepad"
-      className="w-full h-full object-contain"
-    />
-  ),
-  github: (
-    <img
-      src="https://img.icons8.com/fluency/48/000000/github.png"
-      alt="GitHub"
-      className="w-full h-full object-contain"
-    />
-  ),
-  linkedin: (
-    <img
-      src="https://img.icons8.com/fluency/48/000000/linkedin.png"
-      alt="LinkedIn"
-      className="w-full h-full object-contain"
-    />
-  ),
-  youtube: (
-    <img
-      src="https://img.icons8.com/fluency/48/000000/youtube-play.png"
-      alt="YouTube"
       className="w-full h-full object-contain"
     />
   ),
@@ -259,37 +221,6 @@ export default function App() {
   const [notepadContent, setNotepadContent] = useState("");
   const [notepadTitle, setNotepadTitle] = useState("Untitled - Notepad");
   const [notepadUrl, setNotepadUrl] = useState<string | undefined>(undefined);
-  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(
-    null,
-  );
-
-  useEffect(() => {
-    fetch("/api/portfolio")
-      .then((res) => res.json())
-      .then((data) => setPortfolioData(data))
-      .catch((err) => console.error("Failed to fetch portfolio data:", err));
-  }, []);
-
-  const updatePortfolioData = async (
-    newData: PortfolioData,
-    password: string,
-  ) => {
-    try {
-      const res = await fetch("/api/portfolio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, data: newData }),
-      });
-      if (res.ok) {
-        setPortfolioData(newData);
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error("Failed to update portfolio data:", error);
-      return false;
-    }
-  };
 
   const focusWindow = useCallback(
     (id: WindowId) => {
@@ -357,16 +288,10 @@ export default function App() {
   const handleTaskbarClick = (id: WindowId) => {
     const win = windows.find((w) => w.id === id);
     if (!win) return;
-
-    if (!win.isOpen) {
-      openWindow(id);
-    } else if (win.isMinimized) {
-      toggleMinimize(id);
-    } else if (activeWindowId === id) {
-      toggleMinimize(id);
-    } else {
-      focusWindow(id);
-    }
+    if (!win.isOpen) openWindow(id);
+    else if (win.isMinimized) toggleMinimize(id);
+    else if (activeWindowId === id) toggleMinimize(id);
+    else focusWindow(id);
   };
 
   const handleRefresh = () => {
@@ -376,96 +301,32 @@ export default function App() {
 
   const changeBackground = () => {
     const currentIndex = WALLPAPERS.indexOf(wallpaper);
-    const nextIndex = (currentIndex + 1) % WALLPAPERS.length;
-    setWallpaper(WALLPAPERS[nextIndex]);
+    setWallpaper(WALLPAPERS[(currentIndex + 1) % WALLPAPERS.length]);
   };
 
   const handlePowerOn = () => {
     setSystemState("bios");
-    setTimeout(() => {
-      setSystemState("booting");
-    }, 1500);
-    setTimeout(() => {
-      setSystemState("on");
-    }, 5500);
+    setTimeout(() => setSystemState("booting"), 1500);
+    setTimeout(() => setSystemState("on"), 5500);
   };
 
   const handleShutdown = () => {
     setSystemState("shutting-down");
-    setTimeout(() => {
-      setSystemState("off");
-    }, 3000);
+    setTimeout(() => setSystemState("off"), 3000);
   };
 
   const handleRestart = () => {
     setSystemState("shutting-down");
     setTimeout(() => {
       setSystemState("bios");
-      setTimeout(() => {
-        setSystemState("booting");
-      }, 1500);
-      setTimeout(() => {
-        setSystemState("on");
-      }, 5500);
+      setTimeout(() => setSystemState("booting"), 1500);
+      setTimeout(() => setSystemState("on"), 5500);
     }, 3000);
   };
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     setContextMenu({ x: e.clientX, y: e.clientY, isOpen: true });
-  };
-
-  const handleCreateFolder = async () => {
-    if (!portfolioData) return;
-
-    const newFolder = {
-      id: `folder-${Date.now()}`,
-      name: "New Folder",
-      icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
-      type: "folder" as const,
-      content: [],
-    };
-
-    const updatedDesktopItems = [
-      ...(portfolioData.desktopItems || []),
-      {
-        ...newFolder,
-        windowId: "explorer",
-        type: "app" as const,
-      },
-    ];
-
-    const updatedFileSystem = [...(portfolioData.fileSystem || [])];
-    const desktopFolder = updatedFileSystem.find(
-      (item) => item.id === "desktop",
-    ) || {
-      id: "desktop",
-      name: "Desktop",
-      type: "folder",
-      icon: "https://img.icons8.com/fluency/48/000000/desktop.png",
-      content: [],
-    };
-
-    if (!updatedFileSystem.find((item) => item.id === "desktop")) {
-      updatedFileSystem.push(desktopFolder as any);
-    }
-
-    desktopFolder.content = [...(desktopFolder.content || []), newFolder];
-
-    const newData = {
-      ...portfolioData,
-      desktopItems: updatedDesktopItems,
-      fileSystem: updatedFileSystem,
-    };
-
-    // We need the password to update. For now, we'll just update locally
-    // and let the user save via a backend if they want persistence across sessions,
-    // OR we can assume a default password if we want it to work immediately.
-    // Actually, the user wants to "modify in ever things", so let's make it persist if possible.
-    // But we don't have the password here.
-    // Let's just update the local state for now.
-    setPortfolioData(newData);
-    setContextMenu((prev) => ({ ...prev, isOpen: false }));
   };
 
   const openExternalLink = (url: string) => {
@@ -480,19 +341,19 @@ export default function App() {
     setDeletedItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const handleEmptyBin = () => {
-    setDeletedItems([]);
-  };
+  const handleEmptyBin = () => setDeletedItems([]);
 
   const handleDeleteFile = (file: any) => {
-    const newItem = {
-      ...file,
-      deletedAt: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
-    setDeletedItems((prev) => [newItem, ...prev]);
+    setDeletedItems((prev) => [
+      {
+        ...file,
+        deletedAt: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+      ...prev,
+    ]);
   };
 
   const handleOpenFile = (name: string, content: string, url?: string) => {
@@ -502,7 +363,7 @@ export default function App() {
     openWindow("notepad");
   };
 
-  // Power On Screen (CPU/Physical Button)
+  // ── Power Off Screen ──────────────────────────────────────────────────────
   if (systemState === "off") {
     return (
       <div className="w-screen h-screen bg-[#050505] flex flex-col items-center justify-center gap-16">
@@ -535,7 +396,7 @@ export default function App() {
     );
   }
 
-  // BIOS Screen
+  // ── BIOS Screen ───────────────────────────────────────────────────────────
   if (systemState === "bios") {
     return (
       <div className="w-screen h-screen bg-black flex flex-col items-start p-12 font-mono text-white text-sm gap-2">
@@ -543,7 +404,7 @@ export default function App() {
           <Cpu size={48} className="text-gray-400" />
           <div className="flex flex-col">
             <span className="text-xl font-bold">PORTFOLIO BIOS v2.0</span>
-            <span className="opacity-60">Copyright (C) 2026 Niraj Gupta</span>
+            <span className="opacity-60">Copyright (C) 2026 Alok Ranjan</span>
           </div>
         </div>
         <p>CPU: Intel(R) Core(TM) i9-12900K @ 3.20GHz</p>
@@ -558,7 +419,7 @@ export default function App() {
     );
   }
 
-  // Boot Sequence
+  // ── Boot Screen ───────────────────────────────────────────────────────────
   if (systemState === "booting") {
     return (
       <div className="w-screen h-screen bg-black flex flex-col items-center justify-center gap-24">
@@ -568,12 +429,10 @@ export default function App() {
           transition={{ duration: 1 }}
           className="grid grid-cols-2 gap-1"
         >
-          <div className="w-12 h-12 bg-blue-500 rounded-sm" />
-          <div className="w-12 h-12 bg-blue-500 rounded-sm" />
-          <div className="w-12 h-12 bg-blue-500 rounded-sm" />
-          <div className="w-12 h-12 bg-blue-500 rounded-sm" />
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="w-12 h-12 bg-blue-500 rounded-sm" />
+          ))}
         </motion.div>
-
         <div className="relative w-12 h-12">
           {[...Array(8)].map((_, i) => (
             <motion.div
@@ -586,15 +445,8 @@ export default function App() {
                 marginTop: "-4px",
                 transform: `rotate(${i * 45}deg) translate(24px)`,
               }}
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0.5, 1, 0.5],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.5,
-                delay: i * 0.15,
-              }}
+              animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.15 }}
             />
           ))}
         </div>
@@ -602,7 +454,7 @@ export default function App() {
     );
   }
 
-  // Shutdown Sequence
+  // ── Shutdown Screen ───────────────────────────────────────────────────────
   if (systemState === "shutting-down") {
     return (
       <div className="w-screen h-screen bg-black flex flex-col items-center justify-center text-white gap-6">
@@ -622,7 +474,7 @@ export default function App() {
     );
   }
 
-  // Main Desktop Environment
+  // ── Main Desktop ──────────────────────────────────────────────────────────
   return (
     <div
       className="relative w-screen h-screen overflow-hidden bg-cover bg-center transition-all duration-700"
@@ -634,7 +486,7 @@ export default function App() {
           setContextMenu((prev) => ({ ...prev, isOpen: false }));
       }}
     >
-      {/* Refresh Overlay */}
+      {/* Refresh overlay */}
       <AnimatePresence>
         {isRefreshing && (
           <motion.div
@@ -646,23 +498,19 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Desktop Icons Grid */}
+      {/* Desktop Icons — driven entirely by static PORTFOLIO_DATA */}
       <div className="absolute top-4 left-4 flex flex-col flex-wrap h-[calc(100vh-60px)] gap-2 content-start">
-        {(portfolioData?.desktopItems || []).map((item) => (
+        {PORTFOLIO_DATA.desktopItems.map((item) => (
           <DesktopIcon
             key={item.id}
             id={item.id}
             name={item.name}
             icon={
-              typeof item.icon === "string" ? (
-                <img
-                  src={item.icon}
-                  alt={item.name}
-                  className="w-full h-full object-contain"
-                />
-              ) : (
-                item.icon
-              )
+              <img
+                src={item.icon as string}
+                alt={item.name}
+                className="w-full h-full object-contain"
+              />
             }
             onClick={() => {
               if (item.type === "app" && item.windowId) {
@@ -673,6 +521,7 @@ export default function App() {
             }}
           />
         ))}
+        {/* Resume is always hardcoded */}
         <DesktopIcon
           id="resume"
           name="Resume.pdf"
@@ -681,7 +530,7 @@ export default function App() {
         />
       </div>
 
-      {/* Windows */}
+      {/* ── Windows ── */}
       <Window
         {...windows.find((w) => w.id === "about")!}
         onClose={() => closeWindow("about")}
@@ -689,7 +538,7 @@ export default function App() {
         onMaximize={() => toggleMaximize("about")}
         onFocus={() => focusWindow("about")}
       >
-        <AboutMe data={portfolioData} />
+        <AboutMe data={PORTFOLIO_DATA} />
       </Window>
 
       <Window
@@ -699,7 +548,7 @@ export default function App() {
         onMaximize={() => toggleMaximize("projects")}
         onFocus={() => focusWindow("projects")}
       >
-        <Projects data={portfolioData?.projects} />
+        <Projects data={PORTFOLIO_DATA.projects} />
       </Window>
 
       <Window
@@ -709,7 +558,7 @@ export default function App() {
         onMaximize={() => toggleMaximize("skills")}
         onFocus={() => focusWindow("skills")}
       >
-        <Skills data={portfolioData?.skillGroups} />
+        <Skills data={PORTFOLIO_DATA.skillGroups} />
       </Window>
 
       <Window
@@ -744,7 +593,7 @@ export default function App() {
           onDeleteFile={handleDeleteFile}
           onOpenFile={handleOpenFile}
           capturedPhotos={capturedPhotos}
-          fileSystem={portfolioData?.fileSystem}
+          fileSystem={PORTFOLIO_DATA.fileSystem}
         />
       </Window>
 
@@ -794,7 +643,7 @@ export default function App() {
         onMaximize={() => toggleMaximize("certificates")}
         onFocus={() => focusWindow("certificates")}
       >
-        <Certificates data={portfolioData?.certificates} />
+        <Certificates data={PORTFOLIO_DATA.certificates} />
       </Window>
 
       {/* Context Menu */}
@@ -803,7 +652,9 @@ export default function App() {
         onClose={() => setContextMenu((prev) => ({ ...prev, isOpen: false }))}
         onRefresh={handleRefresh}
         onChangeBackground={changeBackground}
-        onCreateFolder={handleCreateFolder}
+        onCreateFolder={() =>
+          setContextMenu((prev) => ({ ...prev, isOpen: false }))
+        }
       />
 
       {/* Start Menu */}
