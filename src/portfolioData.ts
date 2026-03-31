@@ -333,6 +333,210 @@ export const PORTFOLIO_DATA: PortfolioData = {
           ],
         },
         {
+          id: "skills",
+          name: "Skills",
+          type: "folder",
+          icon: "https://img.icons8.com/fluency/48/000000/code.png",
+          content: [
+            {
+              id: "programming",
+              name: "Programming",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              content: [
+                {
+                  id: "python",
+                  name: "Python",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Skill: Python\n\nProficiency: Intermediate\n\nDetails:\n- Data analysis\n- Machine learning basics\n- Automation scripts",
+                },
+                {
+                  id: "javascript",
+                  name: "JavaScript",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Skill: JavaScript\n\nProficiency: Advanced\n\nDetails:\n- ES6+\n- DOM manipulation\n- API integration",
+                },
+                {
+                  id: "sql",
+                  name: "SQL",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Skill: SQL\n\nProficiency: Intermediate\n\nDetails:\n- Query writing\n- Data filtering\n- Database operations",
+                },
+              ],
+            },
+            {
+              id: "tools",
+              name: "Tools & OS",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              content: [
+                {
+                  id: "git",
+                  name: "Git",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Version control system used for managing and tracking code changes.",
+                },
+                {
+                  id: "colab",
+                  name: "Google Colab",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Cloud-based Python notebook environment used for data analysis and machine learning.",
+                },
+                {
+                  id: "vscode",
+                  name: "VS Code",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Primary development environment used for coding and debugging.",
+                },
+                {
+                  id: "postman",
+                  name: "Postman",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent: "API testing and debugging tool.",
+                },
+                {
+                  id: "powerbi",
+                  name: "Power BI",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Data visualization and dashboard creation tool.",
+                },
+              ],
+            },
+            {
+              id: "libraries",
+              name: "Libraries & Frameworks",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              content: [
+                {
+                  id: "pandas",
+                  name: "Pandas",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Python library used for data manipulation and analysis.",
+                },
+                {
+                  id: "numpy",
+                  name: "NumPy",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent: "Python library for numerical computing.",
+                },
+                {
+                  id: "sklearn",
+                  name: "Scikit-learn",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Machine learning library used for building predictive models.",
+                },
+                {
+                  id: "tailwind",
+                  name: "Tailwind CSS",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Utility-first CSS framework for building modern responsive UI.",
+                },
+                {
+                  id: "node",
+                  name: "Node.js",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "JavaScript runtime used for backend development.",
+                },
+                {
+                  id: "express",
+                  name: "Express.js",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent: "Backend framework used to build REST APIs.",
+                },
+                {
+                  id: "redux",
+                  name: "Redux Toolkit",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "State management library for React applications.",
+                },
+              ],
+            },
+            {
+              id: "webskills",
+              name: "Web & App Development",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              content: [
+                {
+                  id: "htmlcssjs",
+                  name: "HTML / CSS / JS",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Core web development technologies used for building websites.",
+                },
+                {
+                  id: "react",
+                  name: "ReactJS / NextJS",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Frontend frameworks used for building modern web applications.",
+                },
+                {
+                  id: "reactnative",
+                  name: "React Native",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Framework used to build cross-platform mobile applications.",
+                },
+              ],
+            },
+            {
+              id: "database",
+              name: "Databases",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              content: [
+                {
+                  id: "mongodb",
+                  name: "MongoDB",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "NoSQL database used for storing application data.",
+                },
+                {
+                  id: "mysql",
+                  name: "MySQL",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent: "Relational database management system.",
+                },
+              ],
+            },
+          ],
+        },
+        {
           id: "certificates",
           name: "Certificates",
           type: "folder",
