@@ -50,6 +50,56 @@ export const PORTFOLIO_DATA: PortfolioData = {
       github: "https://github.com/Alok595",
       category: "Full Stack",
     },
+    {
+      id: "proj-snakefy",
+      title: "Snakefy",
+      description:
+        "AI-powered snake detection and emergency assistance system. Upload or capture a snake image to get instant species identification, venomous/non-venomous classification, danger level, first-aid instructions, and nearby hospital suggestions.",
+      tech: [
+        "React",
+        "TypeScript",
+        "Gemini AI",
+        "Geolocation API",
+        "Tailwind CSS",
+      ],
+      image: "https://picsum.photos/seed/snakefy/400/250",
+      link: "https://snakefy-two.vercel.app/",
+      github: "https://github.com/Alok595",
+      category: "AI / Safety",
+    },
+    {
+      id: "proj-khojai",
+      title: "Khoj AI",
+      description:
+        "Generative AI-powered search and knowledge assistant built with modern web technologies. Leverages cutting-edge AI models to deliver intelligent, context-aware answers and research assistance.",
+      tech: ["React", "TypeScript", "Generative AI", "Tailwind CSS", "Vercel"],
+      image: "https://picsum.photos/seed/khojai/400/250",
+      link: "https://khoj-ai-gen-ai-2cur.vercel.app/",
+      github: "https://github.com/Alok595",
+      category: "AI",
+    },
+    {
+      id: "proj-confessionbox",
+      title: "Confession Box",
+      description:
+        "An anonymous confession platform where users can share their thoughts and secrets safely. A clean, minimal space for honest expression without identity.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Vercel"],
+      image: "https://picsum.photos/seed/confessionbox/400/250",
+      link: "https://confession-box-theta.vercel.app/",
+      github: "https://github.com/Alok595",
+      category: "Web App",
+    },
+    // ⬇️ ADD ESCAPE ROOM PROJECT HERE once details are provided
+    // {
+    //   id: "proj-escaperoom",
+    //   title: "Escape Room",
+    //   description: "...",
+    //   tech: [...],
+    //   image: "https://picsum.photos/seed/escaperoom/400/250",
+    //   link: "https://...",
+    //   github: "https://github.com/Alok595",
+    //   category: "...",
+    // },
   ],
 
   skillGroups: [
@@ -88,6 +138,13 @@ export const PORTFOLIO_DATA: PortfolioData = {
         { name: "Scikit-learn", level: 60 },
         { name: "TensorFlow", level: 55 },
         { name: "Power BI", level: 55 },
+      ],
+    },
+    {
+      category: "AI & Generative AI",
+      skills: [
+        { name: "Gemini AI API", level: 75 },
+        { name: "Generative AI Integration", level: 70 },
       ],
     },
     {
@@ -258,6 +315,37 @@ export const PORTFOLIO_DATA: PortfolioData = {
               url: "https://botwearsfullstack-frontendone.onrender.com/",
               content: [],
             },
+            {
+              id: "proj-4",
+              name: "Snakefy",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              textContent:
+                "Project: Snakefy — AI Snake Detection & Emergency Assistant\n\nAn intelligent web application that identifies snakes from images and provides real-time safety guidance to assist users in critical situations.\n\nFeatures:\n- AI-powered snake detection from camera or uploaded images\n- Venomous / Non-venomous classification\n- Confidence score and danger level assessment\n- Nearby hospital finder using Geolocation API\n- Step-by-step first-aid instructions\n- Multi-language support\n\nTech Stack:\n- Frontend: React, TypeScript, TailwindCSS\n- AI: Gemini AI API\n- Location: Geolocation API\n- Hosting: Vercel\n\nDisclaimer: AI-based predictions may not be 100% accurate. Always maintain a safe distance and seek professional help immediately.\n\nLive Link:\nhttps://snakefy-two.vercel.app/",
+              url: "https://snakefy-two.vercel.app/",
+              content: [],
+            },
+            {
+              id: "proj-5",
+              name: "Khoj AI",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              textContent:
+                "Project: Khoj AI — Generative AI Knowledge Assistant\n\nA Generative AI-powered search and knowledge assistant delivering intelligent, context-aware answers and research assistance.\n\nFeatures:\n- AI-powered intelligent search\n- Context-aware answer generation\n- Research assistance and knowledge retrieval\n- Clean and intuitive UI\n\nTech Stack:\n- Frontend: React, TypeScript, TailwindCSS\n- AI: Generative AI integration\n- Hosting: Vercel\n\nLive Link:\nhttps://khoj-ai-gen-ai-2cur.vercel.app/",
+              url: "https://khoj-ai-gen-ai-2cur.vercel.app/",
+              content: [],
+            },
+            {
+              id: "proj-6",
+              name: "Confession Box",
+              type: "folder",
+              icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+              textContent:
+                "Project: Confession Box — Anonymous Confession Platform\n\nA safe and anonymous space for users to share their thoughts, secrets, and confessions without revealing their identity.\n\nFeatures:\n- Fully anonymous posting\n- Clean and minimal UI\n- Safe space for honest expression\n\nTech Stack:\n- Frontend: React, TypeScript, TailwindCSS\n- Hosting: Vercel\n\nLive Link:\nhttps://confession-box-theta.vercel.app/",
+              url: "https://confession-box-theta.vercel.app/",
+              content: [],
+            },
+            // Escape Room to be added once details are provided
           ],
         },
         {
@@ -476,6 +564,14 @@ export const PORTFOLIO_DATA: PortfolioData = {
                   icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
                   textContent:
                     "State management library for React applications.",
+                },
+                {
+                  id: "gemini",
+                  name: "Gemini AI API",
+                  type: "file",
+                  icon: "https://img.icons8.com/fluency/48/000000/folder-invoices.png",
+                  textContent:
+                    "Google's generative AI API used for building AI-powered features like image recognition and intelligent search.",
                 },
               ],
             },
